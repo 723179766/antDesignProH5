@@ -5,12 +5,16 @@ import { Redirect } from 'umi';
 import { stringify } from 'querystring';
 import { loginAdmin1, loginAdmin2, adminLogin } from '@/services/login';
 
+let oldInnerWidth = window.innerWidth;
+
 class SecurityLayout extends React.Component {
   state = {
     isReady: false,
   };
 
   componentDidMount() {
+    this.setScreenSize(oldInnerWidth);
+    window.addEventListener('resize', this.windowResize, false);
     const { dispatch } = this.props;
     const role = localStorage.getItem('role');
     if (role === 'role1') {
@@ -51,6 +55,41 @@ class SecurityLayout extends React.Component {
       })
     }
   }
+
+  windowResize = () => {
+    if (window.innerWidth >= 1280 && oldInnerWidth < 1280) {
+      // log('浏览器放大到1280分辨率及以上');
+      oldInnerWidth = window.innerWidth;
+      this.setScreenSize(oldInnerWidth);
+    }
+    if ((window.innerWidth < 1280 && oldInnerWidth >= 1280) || (window.innerWidth > 768 && oldInnerWidth <= 768)) {
+      // log('浏览器处于768-1280分辨率之间');
+      oldInnerWidth = window.innerWidth;
+      this.setScreenSize(oldInnerWidth);
+    }
+    if (window.innerWidth <= 768 && oldInnerWidth > 768) {
+      // log('浏览器缩小到768分辨率及以下');
+      oldInnerWidth = window.innerWidth;
+      this.setScreenSize(oldInnerWidth);
+    }
+  };
+
+  setScreenSize = (size) => {
+    log('当前尺寸', size);
+    let sizeType = '';
+    const { dispatch } = this.props;
+    if (size >= 1280) {
+      sizeType = 'lg'
+    } else if (size > 768 && size < 1280){
+      sizeType = 'md'
+    } else if (size <= 768) {
+      sizeType = 'xs'
+    }
+    dispatch({
+      type: 'setting/setScreenSize',
+      payload: sizeType
+    })
+  };
 
   render() {
     const { isReady } = this.state;

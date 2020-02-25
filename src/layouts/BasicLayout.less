@@ -1,24 +1,15 @@
 .basicLayout{
-  position: relative;
-  min-width: 1380px;
+  display: flex;
   height: 100%;
-  overflow-x: auto;
   .basicLayoutLeft{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
     width: 240px;
+    min-width: 240px;
     overflow-x: hidden;
     overflow-y: auto;
     border-right: 1px solid #cecece;
   }
   .basicLayoutRight{
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 240px;
+    flex-grow: 1;
     .basicLayoutHeader{
       height: 70px;
       border-bottom: 1px solid #cecece;

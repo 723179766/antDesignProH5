@@ -9,8 +9,20 @@ const updateColorWeak = colorWeak => {
 };
 
 const SettingModel = {
-  namespace: 'settings',
-  state: defaultSettings,
+  namespace: 'setting',
+  state: {
+    ...defaultSettings,
+    screenSize: ''
+  },
+  effects: {
+    *setScreenSize({ payload, callback }, { call, put }) {
+      yield put({
+        type: 'saveScreenSize',
+        payload: payload,
+      });
+      if (callback) callback();
+    },
+  },
   reducers: {
     changeSetting(state = defaultSettings, { payload }) {
       const { colorWeak, contentWidth } = payload;
@@ -22,6 +34,13 @@ const SettingModel = {
       updateColorWeak(!!colorWeak);
       return { ...state, ...payload };
     },
+    saveScreenSize(state, { payload }) {
+      return {
+        ...state,
+        screenSize: payload,
+      };
+    }
   },
 };
+
 export default SettingModel;

@@ -39,7 +39,7 @@ class BasicLayout extends React.Component {
   }
 }
 
-export default connect(({ user, settings }) => ({
+export default connect(({ user, setting }) => ({
   userRouterAuth: user.userRouterAuth,
-  settings,
+  setting,
 }))(BasicLayout);
