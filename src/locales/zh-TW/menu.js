@@ -1,0 +1,16 @@
+export default {
+  'menu.dashboard': '账户概览',
+  'menu.roleAndUser': '用户角色管理',
+  'menu.roleAndUser.userManage': '用户管理',
+  'menu.roleAndUser.roleManage': '角色管理',
+  'menu.role1Page1': '角色1页面1',
+  'menu.role1Page2': '角色1页面2',
+  'menu.role2Page1': '角色2页面1',
+  'menu.role2Page2': '角色2页面2',
+  'menu.roleTest': '页面操作权限案例',
+  'menu.cms': 'CMS',
+  'menu.cms.cmsHomePage': 'CMS 主页',
+  'menu.cms.cmsEditPage': 'CMS 编辑',
+  'menu.cms.cmsEditPage.cmsEditNews': 'CMS 编辑新闻',
+  'menu.cms.cmsEditPage.cmsEditWrite': 'CMS 编辑文章',
+};

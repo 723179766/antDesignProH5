@@ -1,0 +1,42 @@
+.basicLayout{
+  position: relative;
+  min-width: 1380px;
+  height: 100%;
+  overflow-x: auto;
+  .basicLayoutLeft{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 240px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-right: 1px solid #cecece;
+  }
+  .basicLayoutRight{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 240px;
+    .basicLayoutHeader{
+      height: 70px;
+      border-bottom: 1px solid #cecece;
+    }
+    .basicLayoutMain{
+      display: flex;
+      flex-direction: column;
+      height: calc(100% - 70px);
+      overflow-y: auto;
+      .mainNav{
+        height: 50px;
+        min-height: 50px;
+        border-bottom: 1px solid #cecece;
+      }
+      .mainContent{
+        flex-grow: 1;
+        background-color: rgba(255, 255, 0, .1);
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const tree = [
+    {
+      id: 1,
+      name: '张三',
+      children: [
+        {
+          id: 2,
+          name: '李四',
+          children: [
+            {
+              id: 3,
+              name: '王五',
+              children: [
+                {
+                  id: 4,
+                  name: '动物',
+                  children: [
+                    {
+                      id: 6,
+                      name: '小猴子'
+                    }
+                  ]
+                },
+                {
+                  id: 5,
+                  name: '植物'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 7,
+      name: '玛丽',
+      children: [
+        {
+          id: 9,
+          name: '孩子1'
+        },
+        {
+          id: 10,
+          name: '孩子2'
+        }
+      ]
+    },
+    {
+      id: 8,
+      name: '七七小鱼'
+    }
+  ];
+  const array = [];
+
+  function treeMap(tree){
+    if(typeof tree !== "object"){
+      return null;
+    }
+    array.push(tree[2]);
+    array.push(tree[1]);
+    array.push(tree[0]);
+    // console.log(array)
+    // console.log(array[array.length - 1])
+    // return
+    while(array.length > 0){
+      let curNode = array[array.length - 1];
+      if(!curNode.children || curNode.children.length === 0){
+        console.log(curNode.id,curNode.name);
+        array.pop();
+      }else{
+        if(curNode.children[1]){
+          array.push(curNode.children[1]);
+          curNode.children.splice(1,1);
+        }
+        if(curNode.children[0]){
+          array.push(curNode.children[0]);
+          curNode.children.splice(0,1);
+        }
+      }
+    }
+  }
+  treeMap(tree);
+</script>
+</body>
+</html>
