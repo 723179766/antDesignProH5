@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import classNames  from 'classnames';
 import LayoutMenu from '@/components/LayoutMenu';
 import Authorized from '@/Authorized';
 import styles from './BasicLayout.less'
@@ -12,11 +13,18 @@ class BasicLayout extends React.Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, screenSize } = this.props;
 
     return (
       <div className={styles.basicLayout}>
-        <div className={styles.basicLayoutLeft}>
+        <div className={
+          classNames(
+            styles.basicLayoutLeft,
+            screenSize === 'lg' && styles.basicLayoutLeftLg,
+            screenSize === 'md' && styles.basicLayoutLeftMd,
+            screenSize === 'xs' && styles.basicLayoutLeftXs,
+          )
+        }>
           <LayoutMenu {...this.props} />
         </div>
         <div className={styles.basicLayoutRight}>
@@ -41,5 +49,6 @@ class BasicLayout extends React.Component {
 
 export default connect(({ user, setting }) => ({
   userRouterAuth: user.userRouterAuth,
+  screenSize: setting.screenSize,
   setting,
 }))(BasicLayout);

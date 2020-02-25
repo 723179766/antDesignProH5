@@ -75,7 +75,6 @@ class SecurityLayout extends React.Component {
   };
 
   setScreenSize = (size) => {
-    log('当前尺寸', size);
     let sizeType = '';
     const { dispatch } = this.props;
     if (size >= 1280) {

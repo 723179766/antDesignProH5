@@ -1,6 +1,6 @@
 // 注意menu赋值顺序，不可破坏对象应用
 import React from 'react';
-import { Menu } from 'antd';
+import { Menu, Icon } from 'antd';
 import { router } from 'umi';
 import { formatMessage } from 'umi-plugin-react/locale';
 import styles from './index.less';
@@ -15,6 +15,7 @@ class LayoutMenu extends React.Component {
     rootMenuKeys: [],
     selectedKeys: [],
     openKeys: [],
+    collapsed: false,
   };
 
   componentWillMount() {
@@ -34,8 +35,19 @@ class LayoutMenu extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-     // 监听路由变化映射菜单
-    const { location } = nextProps;
+    // 监听路由变化映射菜单
+    const { location, screenSize } = nextProps;
+    log('screenSize', screenSize)
+    if (screenSize === 'lg') {
+      this.setState({
+        collapsed: false
+      });
+    }
+    if (screenSize === 'md') {
+      this.setState({
+        collapsed: true
+      });
+    }
     this.getMenuActive(location.pathname);
   }
 
@@ -127,13 +139,19 @@ class LayoutMenu extends React.Component {
   menuNode = (val) => {
     if (val.children.length > 0) {
       return (
-        <SubMenu key={val.path} title={<span>{formatMessage({id: val.label})}</span>}>
+        <SubMenu key={val.path} title={
+          <span>
+            <Icon type="home" />
+            <span>{formatMessage({id: val.label})}</span>
+          </span>
+        }>
           {val.children.map(cval => this.menuNode(cval))}
         </SubMenu>
       )
     }
     return (
       <Menu.Item key={val.path}>
+        <Icon type="play-circle" />
         <span>{formatMessage({id: val.label})}</span>
       </Menu.Item>
     )
@@ -166,7 +184,7 @@ class LayoutMenu extends React.Component {
   };
 
   render() {
-    const { menu, selectedKeys, openKeys } = this.state;
+    const { menu, selectedKeys, openKeys, collapsed } = this.state;
 
     return (
       <div className={styles.layoutMenu}>
@@ -177,6 +195,7 @@ class LayoutMenu extends React.Component {
           selectedKeys={selectedKeys}
           openKeys={openKeys}
           onOpenChange={this.onOpenChange}
+          inlineCollapsed={collapsed}
         >
           {menu.map(val => this.menuNode(val))}
         </Menu>
